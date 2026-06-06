@@ -1,0 +1,52 @@
+.todo-list {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.todo-list li.done .task-text {
+    text-decoration: line-through;
+    color: var(--nx-color-muted, var(--bs-secondary-color, #6c757d));
+}
+
+.todo-message {
+    cursor: pointer;
+    background: color-mix(in srgb, var(--nx-color-card-bg, var(--bs-card-bg, var(--bs-body-bg, #fff))) 90%, var(--bs-primary, #0d6efd) 10%) !important;
+    color: var(--nx-color-on-surface, var(--bs-body-color, #212529)) !important;
+    border: 1px solid color-mix(in srgb, var(--bs-primary, #0d6efd) 28%, var(--nx-color-card-border, var(--bs-border-color)) 72%) !important;
+}
+
+.todo-message.open {
+    background: color-mix(in srgb, var(--nx-color-card-bg, var(--bs-card-bg, var(--bs-body-bg, #fff))) 82%, var(--bs-primary, #0d6efd) 18%) !important;
+}
+
+.todo-message .todo-text {
+    color: inherit !important;
+}
+
+#todoAccordion .accordion-item {
+    background: var(--nx-color-card-bg, var(--bs-card-bg, var(--bs-body-bg, #fff))) !important;
+    color: var(--nx-color-on-surface, var(--bs-body-color, #212529)) !important;
+    border-color: var(--nx-color-card-border, var(--bs-border-color)) !important;
+}
+
+#todoAccordion .accordion-button {
+    background: color-mix(in srgb, var(--nx-color-card-bg, var(--bs-card-bg, var(--bs-body-bg, #fff))) 88%, var(--bs-primary, #0d6efd) 12%) !important;
+    color: var(--nx-color-on-surface, var(--bs-body-color, #212529)) !important;
+    border-color: var(--nx-color-card-border, var(--bs-border-color)) !important;
+    box-shadow: none !important;
+}
+
+#todoAccordion .accordion-button:not(.collapsed) {
+    background: color-mix(in srgb, var(--nx-color-card-bg, var(--bs-card-bg, var(--bs-body-bg, #fff))) 78%, var(--bs-primary, #0d6efd) 22%) !important;
+    color: var(--nx-color-on-surface, var(--bs-body-color, #212529)) !important;
+}
+
+#todoAccordion .accordion-body {
+    background: var(--nx-color-card-bg, var(--bs-card-bg, var(--bs-body-bg, #fff))) !important;
+    color: var(--nx-color-on-surface, var(--bs-body-color, #212529)) !important;
+}
+
+#todoAccordion .accordion-body h6,
+#todoAccordion .accordion-body .text-muted {
+    color: var(--nx-color-muted, var(--bs-secondary-color, #6c757d)) !important;
+}
