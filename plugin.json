@@ -1,8 +1,0 @@
-{
-    "name": "Todo",
-    "slug": "todo",
-    "version": "1.0.0",
-    "author": "Nexpell",
-    "description": "Task and to-do management",
-    "api_version": 1
-}
