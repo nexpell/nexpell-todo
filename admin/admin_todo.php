@@ -61,11 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     assigned_to = ?,
                     updated_by = ?,
                     updated_at = NOW()
-                WHERE id = ? AND userID = ?
+                WHERE id = ?
             ");
 
             $stmt->bind_param(
-                "ssssiiiiii",
+                "ssssiiiii",
                 $task,
                 $description,
                 $priority,
@@ -74,8 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $done,
                 $assigned_to,
                 $userID,
-                $edit_id,
-                $userID
+                $edit_id
             );
         } else {
             $stmt = $_database->prepare("
@@ -90,11 +89,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     assigned_to = NULL,
                     updated_by = ?,
                     updated_at = NOW()
-                WHERE id = ? AND userID = ?
+                WHERE id = ?
             ");
 
             $stmt->bind_param(
-                "ssssiiiii",
+                "ssssiiii",
                 $task,
                 $description,
                 $priority,
@@ -102,8 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $progress,
                 $done,
                 $userID,
-                $edit_id,
-                $userID
+                $edit_id
             );
         }
 
@@ -165,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($_GET['done_id'])) {
     $id = (int)$_GET['done_id'];
 
-    $_database->query("UPDATE plugins_todo SET done=1, updated_at=NOW() WHERE id=$id AND userID=$userID");
+    $_database->query("UPDATE plugins_todo SET done=1, updated_by=$userID, updated_at=NOW() WHERE id=$id");
 
     nx_audit_update('admin_todo', (string)$id, true, (string)$id, 'admincenter.php?site=admin_todo');
     nx_redirect('admincenter.php?site=admin_todo', 'success', 'alert_saved', false);
@@ -174,7 +172,7 @@ if (isset($_GET['done_id'])) {
 if (isset($_GET['del_id'])) {
     $id = (int)$_GET['del_id'];
 
-    $_database->query("DELETE FROM plugins_todo WHERE id=$id AND userID=$userID");
+    $_database->query("DELETE FROM plugins_todo WHERE id=$id");
 
     nx_audit_delete('admin_todo', (string)$id, (string)$id, 'admincenter.php?site=admin_todo');
     nx_redirect('admincenter.php?site=admin_todo', 'success', 'alert_deleted', false);
@@ -191,10 +189,10 @@ if ($action === 'edit' && isset($_GET['edit_id'])) {
             ua.username AS assigned_name
         FROM plugins_todo t
         LEFT JOIN users ua ON ua.userID = t.assigned_to
-        WHERE t.id = ? AND t.userID = ?
+        WHERE t.id = ?
         LIMIT 1
     ");
-    $stmtEdit->bind_param("ii", $id, $userID);
+    $stmtEdit->bind_param("i", $id);
     $stmtEdit->execute();
     $todo_edit = $stmtEdit->get_result()->fetch_assoc();
     $stmtEdit->close();
